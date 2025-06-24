@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.regulation.mapper.RegulationsMapper">
+    
+    <resultMap type="Regulations" id="RegulationsResult">
+        <result property="id"    column="id"    />
+        <result property="regulationName"    column="regulation_name"    />
+        <result property="regulationNo"    column="regulation_no"    />
+        <result property="regulationUrl"    column="regulation_url"    />
+        <result property="regulationUrlEncoded"     column="regulation_url_encoded"/>
+        <result property="regulationStatus"    column="regulation_status"    />
+        <result property="parseStatus"      column="parse_status"/>
+        <result property="createTime"    column="create_time"    />
+        <result property="modifyTime"    column="modify_time"    />
+        <result property="createBy"    column="create_by"    />
+    </resultMap>
+
+    <sql id="selectRegulationsVo">
+        select id, regulation_name, regulation_no, regulation_url, regulation_url_encoded, regulation_status, parse_status, create_time, modify_time, create_by from regulations
+    </sql>
+
+    <select id="selectRegulationsList" parameterType="Regulations" resultMap="RegulationsResult">
+        <include refid="selectRegulationsVo"/>
+        <where>  
+            <if test="regulationName != null  and regulationName != ''"> and regulation_name like concat('%', #{regulationName}, '%')</if>
+            <if test="regulationNo != null  and regulationNo != ''"> and regulation_no = #{regulationNo}</if>
+            <if test="regulationStatus != null "> and regulation_status = #{regulationStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectRegulationsById" parameterType="Long" resultMap="RegulationsResult">
+        <include refid="selectRegulationsVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertRegulations" parameterType="Regulations">
+        insert into regulations
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="regulationName != null and regulationName != ''">regulation_name,</if>
+            <if test="regulationNo != null and regulationNo != ''">regulation_no,</if>
+            <if test="regulationUrl != null and regulationUrl != ''">regulation_url,</if>
+            <if test="regulationUrlEncoded != null and regulationUrlEncoded != ''">regulation_url_encoded,</if>
+            <if test="regulationStatus != null">regulation_status,</if>
+            <if test="parseStatus != null">parse_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="modifyTime != null">modify_time,</if>
+            <if test="createBy != null">create_by,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="regulationName != null and regulationName != ''">#{regulationName},</if>
+            <if test="regulationNo != null and regulationNo != ''">#{regulationNo},</if>
+            <if test="regulationUrl != null and regulationUrl != ''">#{regulationUrl},</if>
+            <if test="regulationUrlEncoded != null and regulationUrlEncoded != ''">#{regulationUrlEncoded},</if>
+            <if test="regulationStatus != null">#{regulationStatus},</if>
+            <if test="parseStatus != null">#{parseStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="modifyTime != null">#{modifyTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+         </trim>
+    </insert>
+
+    <update id="updateRegulations" parameterType="Regulations">
+        update regulations
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="regulationName != null and regulationName != ''">regulation_name = #{regulationName},</if>
+            <if test="regulationNo != null and regulationNo != ''">regulation_no = #{regulationNo},</if>
+            <if test="regulationUrl != null and regulationUrl != ''">regulation_url = #{regulationUrl},</if>
+            <if test="regulationUrlEncoded != null and regulationUrlEncoded != ''">regulation_url_encoded = #{regulationUrlEncoded},</if>
+            <if test="regulationStatus != null">regulation_status = #{regulationStatus},</if>
+            <if test="parseStatus != null">parse_status = #{parseStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="modifyTime != null">modify_time = #{modifyTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRegulationsById" parameterType="Long">
+        delete from regulations where id = #{id}
+    </delete>
+
+    <delete id="deleteRegulationsByIds" parameterType="String">
+        delete from regulations where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

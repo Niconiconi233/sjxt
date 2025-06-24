@@ -1,5 +1,9 @@
 package com.ruoyi.common.utils.sign;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Base64工具类
  * 
@@ -287,5 +291,26 @@ public final class Base64
             }
         }
         return newSize;
+    }
+
+    public static String inputStreamToBase64(InputStream inputStream) throws IOException {
+        // 使用ByteArrayOutputStream来读取InputStream中的数据
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[1024];
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        buffer.flush();
+
+        // 将字节数组转换为Base64编码的字符串
+        byte[] byteArray = buffer.toByteArray();
+        String base64String = java.util.Base64.getEncoder().encodeToString(byteArray);
+
+        // 关闭流（如果需要）
+        buffer.close(); // 注意：通常不需要显式关闭ByteArrayOutputStream，除非你在使用try-with-resources时忘记关闭原始的InputStream
+        inputStream.close(); // 确保关闭原始的InputStream
+
+        return base64String;
     }
 }

@@ -1,12 +1,8 @@
 package com.ruoyi.common.utils.file;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +14,8 @@ import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.uuid.IdUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.ibatis.jdbc.Null;
+import org.springframework.util.ObjectUtils;
 
 /**
  * 文件处理工具类
@@ -273,6 +271,15 @@ public class FileUtils
         return fileName.substring(index + 1);
     }
 
+    public static String getFilenameExtend(String fileName) {
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0) {
+            return fileName.substring(dotIndex + 1);
+        }else {
+            return null;
+        }
+    }
+
     /**
      * 获取不带后缀文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi
      * 
@@ -287,5 +294,22 @@ public class FileUtils
         }
         String baseName = FilenameUtils.getBaseName(fileName);
         return baseName;
+    }
+
+    public static InputStream getDownloadInputStreamByUrl(String url) {
+        if (ObjectUtils.isEmpty(url)) {
+            throw new RuntimeException("下载url为空");
+        }
+        InputStream in = null;
+        try {
+            URL urls = new URL(url);
+
+            HttpURLConnection conn = (HttpURLConnection) urls.openConnection();
+            conn.setConnectTimeout(3*1000);
+            in = conn.getInputStream();
+        }catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return in;
     }
 }
