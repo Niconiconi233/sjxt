@@ -1,6 +1,7 @@
 package com.ruoyi.esearch.service.impl;
 
 import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.esearch.DTO.RegulationDTO;
 import com.ruoyi.esearch.domain.Regulation;
 import com.ruoyi.esearch.mapper.EsRegulationMapper;
 import com.ruoyi.esearch.service.EsRegulationService;
@@ -25,7 +26,7 @@ public class EsRegulationServiceImpl implements EsRegulationService {
     private EsRegulationMapper regulationMapper;
 
     @Override
-    public List<Regulation> searchRegulationByKeyword(String type, String key_word) {
+    public List<RegulationDTO> searchRegulationByKeyword(String type, String key_word) {
         if (StringUtils.isEmpty(type)) {
             return new ArrayList<>();
         }
@@ -37,6 +38,11 @@ public class EsRegulationServiceImpl implements EsRegulationService {
         }else {
             wrapper.match(Regulation::getRegulationContext, key_word);
         }
-        return regulationMapper.selectList(wrapper);
+        List<Regulation> regulations = regulationMapper.selectList(wrapper);
+        List<RegulationDTO> regulationDTOS = new ArrayList<>(10);
+        for (Regulation regulation : regulations) {
+            regulationDTOS.add(regulation.toDTO());
+        }
+        return regulationDTOS;
     }
 }

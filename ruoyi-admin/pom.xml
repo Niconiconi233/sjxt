@@ -71,6 +71,11 @@
             <artifactId>ruoyi-esearch</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-audit</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -230,6 +230,12 @@
                 <version>${ruoyi.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-audit</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -242,6 +248,7 @@
         <module>ruoyi-common</module>
         <module>ruoyi-regulations</module>
         <module>ruoyi-esearch</module>
+        <module>ruoyi-audit</module>
     </modules>
     <packaging>pom</packaging>
 

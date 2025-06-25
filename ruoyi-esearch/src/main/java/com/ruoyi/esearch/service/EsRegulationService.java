@@ -1,5 +1,6 @@
 package com.ruoyi.esearch.service;
 
+import com.ruoyi.esearch.DTO.RegulationDTO;
 import com.ruoyi.esearch.domain.Regulation;
 
 import java.util.List;
@@ -13,5 +14,5 @@ import java.util.List;
  **/
 public interface EsRegulationService {
 
-    public List<Regulation> searchRegulationByKeyword(String type, String key_word);
+    public List<RegulationDTO> searchRegulationByKeyword(String type, String key_word);
 }

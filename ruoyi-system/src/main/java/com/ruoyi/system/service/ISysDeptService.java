@@ -20,6 +20,14 @@ public interface ISysDeptService
     public List<SysDept> selectDeptList(SysDept dept);
 
     /**
+     * 查询集团下所有子公司
+     *
+     * @param parentId 集团ID
+     * @return 部门信息集合
+     */
+    List<SysDept> selectSubDeptList(Long parentId);
+
+    /**
      * 查询部门树结构信息
      * 
      * @param dept 部门信息

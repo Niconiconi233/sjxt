@@ -1,5 +1,6 @@
 package com.ruoyi.esearch.domain;
 
+import com.ruoyi.esearch.DTO.RegulationDTO;
 import lombok.Data;
 import org.dromara.easyes.annotation.HighLight;
 import org.dromara.easyes.annotation.IndexField;
@@ -23,8 +24,9 @@ import java.util.Date;
 public class Regulation {
 
     @IndexId(type = IdType.NONE)
-    private Long id;
+    private String id;
 
+    @HighLight(preTag = "<em style='color:red'>", postTag = "</em>")
     @IndexField(fieldType = FieldType.TEXT, analyzer = Analyzer.IK_SMART, searchAnalyzer = Analyzer.IK_MAX_WORD)
     private String regulationName;
 
@@ -36,5 +38,14 @@ public class Regulation {
 
     @IndexField("attachment")
     private Attachment attachment;
+
+    public RegulationDTO toDTO() {
+        RegulationDTO regulationDTO = new RegulationDTO();
+        regulationDTO.setId(this.id);
+        regulationDTO.setRegulationName(this.regulationName);
+        regulationDTO.setRegulationUrl(this.regulationUrl);
+        regulationDTO.setRegulationContext(this.regulationContext);
+        return regulationDTO;
+    }
 }
 

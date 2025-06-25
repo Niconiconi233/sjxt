@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.Anonymous;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -42,6 +44,18 @@ public class SysDeptController extends BaseController
     public AjaxResult list(SysDept dept)
     {
         List<SysDept> depts = deptService.selectDeptList(dept);
+        return success(depts);
+    }
+
+    /**
+     * 获取部门列表
+     */
+    //@PreAuthorize("@ss.hasPermi('system:dept:list')")
+    @Anonymous
+    @GetMapping("/list/sub_dept")
+    public AjaxResult list()
+    {
+        List<SysDept> depts = deptService.selectSubDeptList((long) 100);
         return success(depts);
     }
 

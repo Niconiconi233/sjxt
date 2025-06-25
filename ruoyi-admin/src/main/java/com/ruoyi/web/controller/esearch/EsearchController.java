@@ -3,6 +3,7 @@ package com.ruoyi.web.controller.esearch;
 import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
+import com.ruoyi.esearch.DTO.RegulationDTO;
 import com.ruoyi.esearch.domain.Regulation;
 import com.ruoyi.esearch.service.EsRegulationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class EsearchController extends BaseController {
     @Anonymous
     @GetMapping("search")
     public AjaxResult search(@RequestParam String type, @RequestParam String key_word) {
-        List<Regulation> regulations = esRegulationService.searchRegulationByKeyword(type, key_word);
+        List<RegulationDTO> regulations = esRegulationService.searchRegulationByKeyword(type, key_word);
         return success(regulations);
     }
 

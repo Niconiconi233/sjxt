@@ -48,6 +48,11 @@ public class SysDeptServiceImpl implements ISysDeptService
         return deptMapper.selectDeptList(dept);
     }
 
+    @Override
+    public List<SysDept> selectSubDeptList(Long parentId) {
+        return deptMapper.selectByParentId(parentId);
+    }
+
     /**
      * 查询部门树结构信息
      * 
