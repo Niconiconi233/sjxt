@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.audit.mapper.AuditMainMapper">
+    
+    <resultMap type="AuditMain" id="AuditMainResult">
+        <result property="id"    column="id"    />
+        <result property="projectName"    column="project_name"    />
+        <result property="inputBy"    column="input_by"    />
+        <result property="inputDate"    column="input_date"    />
+        <result property="rectificationDeadline"    column="rectification_deadline"    />
+        <result property="createdBy"    column="created_by"    />
+        <result property="updatedBy"    column="updated_by"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="rectificationOrgId"    column="rectification_org_id"    />
+        <result property="rectificationOrgName"    column="rectification_org_name"    />
+    </resultMap>
+
+    <resultMap id="AuditMainAuditIssueResult" type="AuditMain" extends="AuditMainResult">
+        <collection property="auditIssueList" ofType="AuditIssue" column="id" select="selectAuditIssueList" />
+    </resultMap>
+
+    <resultMap type="AuditIssue" id="AuditIssueResult">
+        <result property="id"    column="id"    />
+        <result property="auditMainId"    column="audit_main_id"    />
+        <result property="issueType"    column="issue_type"    />
+        <result property="issueDescription"    column="issue_description"    />
+        <result property="issueStatus"    column="issue_status"    />
+        <result property="dueDate"    column="due_date"    />
+        <result property="rectificationMeasure"    column="rectification_measure"    />
+        <result property="rectificationResult"    column="rectification_result"    />
+        <result property="supportMaterials"    column="support_materials"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="isDeleted"    column="is_deleted"    />
+    </resultMap>
+
+    <sql id="selectAuditMainVo">
+        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name from audit_main
+    </sql>
+
+    <select id="selectAuditMainList" parameterType="AuditMain" resultMap="AuditMainResult">
+        <include refid="selectAuditMainVo"/>
+        <where>  
+            <if test="id != null "> and id = #{id}</if>
+            <if test="projectName != null  and projectName != ''"> and project_name like concat('%', #{projectName}, '%')</if>
+            <if test="rectificationOrgId != null "> and rectification_org_id = #{rectificationOrgId}</if>
+        </where>
+    </select>
+    
+    <select id="selectAuditMainById" parameterType="Long" resultMap="AuditMainAuditIssueResult">
+        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name
+        from audit_main
+        where id = #{id}
+    </select>
+
+    <select id="selectAuditIssueList" resultMap="AuditIssueResult">
+        select id, audit_main_id, issue_type, issue_description, issue_status, due_date, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted
+        from audit_issue
+        where audit_main_id = #{audit_main_id}
+    </select>
+
+    <insert id="insertAuditMain" parameterType="AuditMain" useGeneratedKeys="true" keyProperty="id">
+        insert into audit_main
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="projectName != null and projectName != ''">project_name,</if>
+            <if test="inputBy != null">input_by,</if>
+            <if test="inputDate != null">input_date,</if>
+            <if test="rectificationDeadline != null">rectification_deadline,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="rectificationOrgId != null">rectification_org_id,</if>
+            <if test="rectificationOrgName != null and rectificationOrgName != ''">rectification_org_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="projectName != null and projectName != ''">#{projectName},</if>
+            <if test="inputBy != null">#{inputBy},</if>
+            <if test="inputDate != null">#{inputDate},</if>
+            <if test="rectificationDeadline != null">#{rectificationDeadline},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="rectificationOrgId != null">#{rectificationOrgId},</if>
+            <if test="rectificationOrgName != null and rectificationOrgName != ''">#{rectificationOrgName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateAuditMain" parameterType="AuditMain">
+        update audit_main
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="projectName != null and projectName != ''">project_name = #{projectName},</if>
+            <if test="inputBy != null">input_by = #{inputBy},</if>
+            <if test="inputDate != null">input_date = #{inputDate},</if>
+            <if test="rectificationDeadline != null">rectification_deadline = #{rectificationDeadline},</if>
+            <if test="createdBy != null">created_by = #{createdBy},</if>
+            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="rectificationOrgId != null">rectification_org_id = #{rectificationOrgId},</if>
+            <if test="rectificationOrgName != null and rectificationOrgName != ''">rectification_org_name = #{rectificationOrgName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteAuditMainById" parameterType="Long">
+        delete from audit_main where id = #{id}
+    </delete>
+
+    <delete id="deleteAuditMainByIds" parameterType="String">
+        delete from audit_main where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+    <delete id="deleteAuditIssueByAuditMainIds" parameterType="String">
+        delete from audit_issue where audit_main_id in 
+        <foreach item="auditMainId" collection="array" open="(" separator="," close=")">
+            #{auditMainId}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAuditIssueByAuditMainId" parameterType="Long">
+        delete from audit_issue where audit_main_id = #{auditMainId}
+    </delete>
+
+    <insert id="batchAuditIssue">
+        insert into audit_issue( id, audit_main_id, issue_type, issue_description, issue_status, due_date, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted) values
+        <foreach item="item" index="index" collection="list" separator=",">
+            ( #{item.id}, #{item.auditMainId}, #{item.issueType}, #{item.issueDescription}, #{item.issueStatus}, #{item.dueDate}, #{item.rectificationMeasure}, #{item.rectificationResult}, #{item.supportMaterials}, #{item.createdAt}, #{item.updatedAt}, #{item.isDeleted})
+        </foreach>
+    </insert>
+</mapper>

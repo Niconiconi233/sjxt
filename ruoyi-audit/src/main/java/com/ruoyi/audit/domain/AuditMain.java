@@ -1,0 +1,220 @@
+package com.ruoyi.audit.domain;
+
+import java.util.List;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import com.ruoyi.common.annotation.Excel;
+import com.ruoyi.common.core.domain.BaseEntity;
+
+/**
+ * 审计问题管理对象 audit_main
+ * 
+ * @author ruoyi
+ * @date 2025-06-25
+ */
+public class AuditMain extends BaseEntity
+{
+    private static final long serialVersionUID = 1L;
+
+    /** 主键ID */
+    @Excel(name = "主键ID")
+    private Long id;
+
+    /** 审计项目名称 */
+    @Excel(name = "审计项目名称")
+    private String projectName;
+
+    /** 录入人名称 */
+    @Excel(name = "录入人名称")
+    private String inputBy;
+
+    /** 录入时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "录入时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date inputDate;
+
+    /** 整体整改时限 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "整体整改时限", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date rectificationDeadline;
+
+    /** 创建者ID */
+    private Long createdBy;
+
+    /** 修改者ID */
+    private Long updatedBy;
+
+    /** 创建时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date createdAt;
+
+    /** 修改时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "修改时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date updatedAt;
+
+    /** 逻辑删除标志（0=未删除，1=已删除） */
+    private Integer isDeleted;
+
+    /** 整改机构ID */
+    private Long rectificationOrgId;
+
+    /** 整改机构名字 */
+    @Excel(name = "整改机构名字")
+    private String rectificationOrgName;
+
+    /** 审计问题子信息 */
+    private List<AuditIssue> auditIssueList;
+
+    public void setId(Long id) 
+    {
+        this.id = id;
+    }
+
+    public Long getId() 
+    {
+        return id;
+    }
+
+    public void setProjectName(String projectName) 
+    {
+        this.projectName = projectName;
+    }
+
+    public String getProjectName() 
+    {
+        return projectName;
+    }
+
+    public void setInputBy(String inputBy) 
+    {
+        this.inputBy = inputBy;
+    }
+
+    public String getInputBy() 
+    {
+        return inputBy;
+    }
+
+    public void setInputDate(Date inputDate) 
+    {
+        this.inputDate = inputDate;
+    }
+
+    public Date getInputDate() 
+    {
+        return inputDate;
+    }
+
+    public void setRectificationDeadline(Date rectificationDeadline) 
+    {
+        this.rectificationDeadline = rectificationDeadline;
+    }
+
+    public Date getRectificationDeadline() 
+    {
+        return rectificationDeadline;
+    }
+
+    public void setCreatedBy(Long createdBy) 
+    {
+        this.createdBy = createdBy;
+    }
+
+    public Long getCreatedBy() 
+    {
+        return createdBy;
+    }
+
+    public void setUpdatedBy(Long updatedBy) 
+    {
+        this.updatedBy = updatedBy;
+    }
+
+    public Long getUpdatedBy() 
+    {
+        return updatedBy;
+    }
+
+    public void setCreatedAt(Date createdAt) 
+    {
+        this.createdAt = createdAt;
+    }
+
+    public Date getCreatedAt() 
+    {
+        return createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) 
+    {
+        this.updatedAt = updatedAt;
+    }
+
+    public Date getUpdatedAt() 
+    {
+        return updatedAt;
+    }
+
+    public void setIsDeleted(Integer isDeleted) 
+    {
+        this.isDeleted = isDeleted;
+    }
+
+    public Integer getIsDeleted() 
+    {
+        return isDeleted;
+    }
+
+    public void setRectificationOrgId(Long rectificationOrgId) 
+    {
+        this.rectificationOrgId = rectificationOrgId;
+    }
+
+    public Long getRectificationOrgId() 
+    {
+        return rectificationOrgId;
+    }
+
+    public void setRectificationOrgName(String rectificationOrgName) 
+    {
+        this.rectificationOrgName = rectificationOrgName;
+    }
+
+    public String getRectificationOrgName() 
+    {
+        return rectificationOrgName;
+    }
+
+    public List<AuditIssue> getAuditIssueList()
+    {
+        return auditIssueList;
+    }
+
+    public void setAuditIssueList(List<AuditIssue> auditIssueList)
+    {
+        this.auditIssueList = auditIssueList;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("id", getId())
+            .append("projectName", getProjectName())
+            .append("inputBy", getInputBy())
+            .append("inputDate", getInputDate())
+            .append("rectificationDeadline", getRectificationDeadline())
+            .append("createdBy", getCreatedBy())
+            .append("updatedBy", getUpdatedBy())
+            .append("createdAt", getCreatedAt())
+            .append("updatedAt", getUpdatedAt())
+            .append("isDeleted", getIsDeleted())
+            .append("rectificationOrgId", getRectificationOrgId())
+            .append("rectificationOrgName", getRectificationOrgName())
+            .append("auditIssueList", getAuditIssueList())
+            .toString();
+    }
+}
