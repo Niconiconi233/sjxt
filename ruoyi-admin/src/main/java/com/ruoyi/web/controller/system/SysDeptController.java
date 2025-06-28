@@ -52,10 +52,10 @@ public class SysDeptController extends BaseController
      */
     //@PreAuthorize("@ss.hasPermi('system:dept:list')")
     @Anonymous
-    @GetMapping("/list/sub_dept")
-    public AjaxResult list()
+    @GetMapping("/list/sub_dept/{deptId}")
+    public AjaxResult list(@PathVariable(value = "deptId", required = true) Long deptId)
     {
-        List<SysDept> depts = deptService.selectSubDeptList((long) 100);
+        List<SysDept> depts = deptService.selectSubDeptList(deptId);
         return success(depts);
     }
 

@@ -17,6 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="isDeleted"    column="is_deleted"    />
         <result property="rectificationOrgId"    column="rectification_org_id"    />
         <result property="rectificationOrgName"    column="rectification_org_name"    />
+        <result property="issueCount"    column="issue_count"    />
+        <result property="issueNum"    column="issue_num"    />
+        <result property="issueAmount"    column="issue_amount"    />
+        <result property="rectifiedIssueCount"    column="rectified_issue_count"    />
+        <result property="rectifiedIssueNum"    column="rectified_issue_num"    />
+        <result property="rectifiedIssueAmount"    column="rectified_issue_amount"    />
+
     </resultMap>
 
     <resultMap id="AuditMainAuditIssueResult" type="AuditMain" extends="AuditMainResult">
@@ -39,7 +46,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAuditMainVo">
-        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name from audit_main
+        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name, issue_count, issue_num, issue_amount,
+            rectified_issue_count, rectified_issue_num, rectified_issue_amount from audit_main
     </sql>
 
     <select id="selectAuditMainList" parameterType="AuditMain" resultMap="AuditMainResult">
@@ -77,6 +85,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="isDeleted != null">is_deleted,</if>
             <if test="rectificationOrgId != null">rectification_org_id,</if>
             <if test="rectificationOrgName != null and rectificationOrgName != ''">rectification_org_name,</if>
+            <if test="issueCount != null">issue_count,</if>
+            <if test="issueNum != null">issue_num,</if>
+            <if test="issueAmount != null">issue_amount,</if>
+            <if test="rectifiedIssueCount != null">rectified_issue_count,</if>
+            <if test="rectifiedIssueNum != null">rectified_issue_num,</if>
+            <if test="rectifiedIssueAmount != null">rectified_issue_amount,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="projectName != null and projectName != ''">#{projectName},</if>
@@ -90,6 +104,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="isDeleted != null">#{isDeleted},</if>
             <if test="rectificationOrgId != null">#{rectificationOrgId},</if>
             <if test="rectificationOrgName != null and rectificationOrgName != ''">#{rectificationOrgName},</if>
+            <if test="issueCount != null">#{issueCount},</if>
+            <if test="issueNum != null">#{issueNum},</if>
+            <if test="issueAmount != null">#{issueAmount},</if>
+            <if test="rectifiedIssueCount != null">#{rectifiedIssueCount},</if>
+            <if test="rectifiedIssueNum != null">#{rectifiedIssueNum},</if>
+            <if test="rectifiedIssueAmount != null">#{rectifiedIssueAmount},</if>
          </trim>
     </insert>
 

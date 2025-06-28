@@ -1,6 +1,8 @@
 package com.ruoyi.audit.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -57,6 +59,7 @@ public class AuditMainServiceImpl implements IAuditMainService
     @Override
     public int insertAuditMain(AuditMain auditMain)
     {
+        auditMain.setCreatedBy(SecurityUtils.getUserId());
         int rows = auditMainMapper.insertAuditMain(auditMain);
         insertAuditIssue(auditMain);
         return rows;
@@ -72,6 +75,7 @@ public class AuditMainServiceImpl implements IAuditMainService
     @Override
     public int updateAuditMain(AuditMain auditMain)
     {
+        auditMain.setUpdatedBy(SecurityUtils.getUserId());
         auditMainMapper.deleteAuditIssueByAuditMainId(auditMain.getId());
         insertAuditIssue(auditMain);
         return auditMainMapper.updateAuditMain(auditMain);

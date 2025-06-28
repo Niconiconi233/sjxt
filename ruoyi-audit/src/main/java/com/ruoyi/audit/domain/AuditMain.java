@@ -66,6 +66,24 @@ public class AuditMain extends BaseEntity
     @Excel(name = "整改机构名字")
     private String rectificationOrgName;
 
+    /** 问题个数 */
+    private Integer issueCount;
+
+    /** 问题笔数 */
+    private Integer issueNum;
+
+    /** 问题金额 */
+    private Double issueAmount;
+
+    /** 整改问题个数 */
+    private Integer rectifiedIssueCount;
+
+    /** 整改问题笔数 */
+    private Integer rectifiedIssueNum;
+
+    /** 整改问题金额 */
+    private Double rectifiedIssueAmount;
+
     /** 审计问题子信息 */
     private List<AuditIssue> auditIssueList;
 
@@ -197,6 +215,54 @@ public class AuditMain extends BaseEntity
     public void setAuditIssueList(List<AuditIssue> auditIssueList)
     {
         this.auditIssueList = auditIssueList;
+    }
+
+    public Double getIssueAmount() {
+        return issueAmount;
+    }
+
+    public Double getRectifiedIssueAmount() {
+        return rectifiedIssueAmount;
+    }
+
+    public Integer getIssueCount() {
+        return issueCount;
+    }
+
+    public Integer getIssueNum() {
+        return issueNum;
+    }
+
+    public Integer getRectifiedIssueCount() {
+        return rectifiedIssueCount;
+    }
+
+    public Integer getRectifiedIssueNum() {
+        return rectifiedIssueNum;
+    }
+
+    public void setIssueAmount(Double issueAmount) {
+        this.issueAmount = issueAmount;
+    }
+
+    public void setIssueCount(Integer issueCount) {
+        this.issueCount = issueCount;
+    }
+
+    public void setIssueNum(Integer issueNum) {
+        this.issueNum = issueNum;
+    }
+
+    public void setRectifiedIssueAmount(Double rectifiedIssueAmount) {
+        this.rectifiedIssueAmount = rectifiedIssueAmount;
+    }
+
+    public void setRectifiedIssueCount(Integer rectifiedIssueCount) {
+        this.rectifiedIssueCount = rectifiedIssueCount;
+    }
+
+    public void setRectifiedIssueNum(Integer rectifiedIssueNum) {
+        this.rectifiedIssueNum = rectifiedIssueNum;
     }
 
     @Override
