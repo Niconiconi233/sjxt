@@ -1,8 +1,13 @@
 package com.ruoyi.audit.service.impl;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.ruoyi.audit.mapper.AuditIssueMapper;
 import com.ruoyi.common.utils.SecurityUtils;
+import com.ruoyi.common.utils.poi.ExcelUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import com.ruoyi.audit.domain.AuditIssue;
 import com.ruoyi.audit.mapper.AuditMainMapper;
 import com.ruoyi.audit.domain.AuditMain;
 import com.ruoyi.audit.service.IAuditMainService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 审计问题管理Service业务层处理
@@ -20,7 +26,7 @@ import com.ruoyi.audit.service.IAuditMainService;
  * @date 2025-06-25
  */
 @Service
-public class AuditMainServiceImpl implements IAuditMainService 
+public class AuditMainServiceImpl extends ServiceImpl<AuditMainMapper, AuditMain> implements IAuditMainService
 {
     @Autowired
     private AuditMainMapper auditMainMapper;
@@ -61,7 +67,7 @@ public class AuditMainServiceImpl implements IAuditMainService
     {
         auditMain.setCreatedBy(SecurityUtils.getUserId());
         int rows = auditMainMapper.insertAuditMain(auditMain);
-        insertAuditIssue(auditMain);
+        //insertAuditIssue(auditMain);
         return rows;
     }
 
@@ -77,7 +83,7 @@ public class AuditMainServiceImpl implements IAuditMainService
     {
         auditMain.setUpdatedBy(SecurityUtils.getUserId());
         auditMainMapper.deleteAuditIssueByAuditMainId(auditMain.getId());
-        insertAuditIssue(auditMain);
+        //insertAuditIssue(auditMain);
         return auditMainMapper.updateAuditMain(auditMain);
     }
 
@@ -114,7 +120,7 @@ public class AuditMainServiceImpl implements IAuditMainService
      * 
      * @param auditMain 审计问题管理对象
      */
-    public void insertAuditIssue(AuditMain auditMain)
+/*    public void insertAuditIssue(AuditMain auditMain)
     {
         List<AuditIssue> auditIssueList = auditMain.getAuditIssueList();
         Long id = auditMain.getId();
@@ -131,5 +137,5 @@ public class AuditMainServiceImpl implements IAuditMainService
                 auditMainMapper.batchAuditIssue(list);
             }
         }
-    }
+    }*/
 }

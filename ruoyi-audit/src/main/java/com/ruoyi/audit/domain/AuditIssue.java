@@ -24,7 +24,7 @@ public class AuditIssue extends BaseEntity
     private Long auditMainId;
 
     /** 问题定性（如：合规性问题、财务问题等） */
-    @Excel(name = "问题定性", readConverterExp = "如=：合规性问题、财务问题等")
+    @Excel(name = "问题定性")
     private String issueType;
 
     /** 问题描述 */
@@ -52,14 +52,26 @@ public class AuditIssue extends BaseEntity
     @Excel(name = "整改支撑材料路径", readConverterExp = "J=SON数组")
     private String supportMaterials;
 
-    /** 创建时间 */
-    private Date createdAt;
-
-    /** 更新时间 */
-    private Date updatedAt;
-
     /** 逻辑删除标志（0=未删除，1=已删除） */
     private Integer isDeleted;
+
+    @Excel(name = "问题个数")
+    private Integer issueCount;
+
+    @Excel(name = "问题笔数")
+    private Integer issueNum;
+
+    @Excel(name = "问题金额")
+    private Double issueAmount;
+
+    @Excel(name = "整改问题个数")
+    private Integer rectifiedIssueCount;
+
+    @Excel(name = "整改问题笔数")
+    private Integer rectifiedIssueNum;
+
+    @Excel(name = "整改问题金额")
+    private Double rectifiedIssueAmount;
 
     public void setId(Long id) 
     {
@@ -142,24 +154,6 @@ public class AuditIssue extends BaseEntity
     {
         return supportMaterials;
     }
-    public void setCreatedAt(Date createdAt) 
-    {
-        this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() 
-    {
-        return createdAt;
-    }
-    public void setUpdatedAt(Date updatedAt) 
-    {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getUpdatedAt() 
-    {
-        return updatedAt;
-    }
     public void setIsDeleted(Integer isDeleted) 
     {
         this.isDeleted = isDeleted;
@@ -168,6 +162,54 @@ public class AuditIssue extends BaseEntity
     public Integer getIsDeleted() 
     {
         return isDeleted;
+    }
+
+    public void setRectifiedIssueCount(Integer rectifiedIssueCount) {
+        this.rectifiedIssueCount = rectifiedIssueCount;
+    }
+
+    public void setRectifiedIssueAmount(Double rectifiedIssueAmount) {
+        this.rectifiedIssueAmount = rectifiedIssueAmount;
+    }
+
+    public void setRectifiedIssueNum(Integer rectifiedIssueNum) {
+        this.rectifiedIssueNum = rectifiedIssueNum;
+    }
+
+    public void setIssueCount(Integer issueCount) {
+        this.issueCount = issueCount;
+    }
+
+    public void setIssueAmount(Double issueAmount) {
+        this.issueAmount = issueAmount;
+    }
+
+    public void setIssueNum(Integer issueNum) {
+        this.issueNum = issueNum;
+    }
+
+    public Integer getRectifiedIssueCount() {
+        return rectifiedIssueCount;
+    }
+
+    public Integer getIssueNum() {
+        return issueNum;
+    }
+
+    public Integer getIssueCount() {
+        return issueCount;
+    }
+
+    public Double getIssueAmount() {
+        return issueAmount;
+    }
+
+    public Integer getRectifiedIssueNum() {
+        return rectifiedIssueNum;
+    }
+
+    public Double getRectifiedIssueAmount() {
+        return rectifiedIssueAmount;
     }
 
     @Override
@@ -182,8 +224,6 @@ public class AuditIssue extends BaseEntity
             .append("rectificationMeasure", getRectificationMeasure())
             .append("rectificationResult", getRectificationResult())
             .append("supportMaterials", getSupportMaterials())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
             .append("isDeleted", getIsDeleted())
             .toString();
     }

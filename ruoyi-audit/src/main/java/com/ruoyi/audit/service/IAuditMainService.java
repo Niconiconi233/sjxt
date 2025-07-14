@@ -1,7 +1,12 @@
 package com.ruoyi.audit.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.ruoyi.audit.domain.AuditIssue;
 import com.ruoyi.audit.domain.AuditMain;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 审计问题管理Service接口
@@ -9,7 +14,7 @@ import com.ruoyi.audit.domain.AuditMain;
  * @author ruoyi
  * @date 2025-06-25
  */
-public interface IAuditMainService 
+public interface IAuditMainService extends IService<AuditMain>
 {
     /**
      * 查询审计问题管理
@@ -58,4 +63,5 @@ public interface IAuditMainService
      * @return 结果
      */
     public int deleteAuditMainById(Long id);
+
 }

@@ -1,6 +1,8 @@
 package com.ruoyi.audit.mapper;
 
 import java.util.List;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ruoyi.audit.domain.AuditMain;
 import com.ruoyi.audit.domain.AuditIssue;
 
@@ -10,7 +12,7 @@ import com.ruoyi.audit.domain.AuditIssue;
  * @author ruoyi
  * @date 2025-06-25
  */
-public interface AuditMainMapper 
+public interface AuditMainMapper extends BaseMapper<AuditMain>
 {
     /**
      * 查询审计问题管理
@@ -35,6 +37,7 @@ public interface AuditMainMapper
      * @return 结果
      */
     public int insertAuditMain(AuditMain auditMain);
+
 
     /**
      * 修改审计问题管理
@@ -67,14 +70,6 @@ public interface AuditMainMapper
      * @return 结果
      */
     public int deleteAuditIssueByAuditMainIds(Long[] ids);
-    
-    /**
-     * 批量新增审计问题子
-     * 
-     * @param auditIssueList 审计问题子列表
-     * @return 结果
-     */
-    public int batchAuditIssue(List<AuditIssue> auditIssueList);
     
 
     /**

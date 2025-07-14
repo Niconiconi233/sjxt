@@ -36,13 +36,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="issueType"    column="issue_type"    />
         <result property="issueDescription"    column="issue_description"    />
         <result property="issueStatus"    column="issue_status"    />
-        <result property="dueDate"    column="due_date"    />
         <result property="rectificationMeasure"    column="rectification_measure"    />
         <result property="rectificationResult"    column="rectification_result"    />
         <result property="supportMaterials"    column="support_materials"    />
         <result property="createdAt"    column="created_at"    />
         <result property="updatedAt"    column="updated_at"    />
         <result property="isDeleted"    column="is_deleted"    />
+        <result property="issueCount"    column="issue_count"    />
+        <result property="issueNum"    column="issue_num"    />
+        <result property="issueAmount"    column="issue_amount"    />
+        <result property="rectifiedIssueCount"    column="rectified_issue_count"    />
+        <result property="rectifiedIssueNum"    column="rectified_issue_num"    />
+        <result property="rectifiedIssueAmount"    column="rectified_issue_amount"    />
     </resultMap>
 
     <sql id="selectAuditMainVo">
@@ -66,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectAuditIssueList" resultMap="AuditIssueResult">
-        select id, audit_main_id, issue_type, issue_description, issue_status, due_date, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted
+        select id, audit_main_id, issue_type, issue_description, issue_status, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted
         from audit_issue
         where audit_main_id = #{audit_main_id}
     </select>
@@ -111,6 +116,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="rectifiedIssueNum != null">#{rectifiedIssueNum},</if>
             <if test="rectifiedIssueAmount != null">#{rectifiedIssueAmount},</if>
          </trim>
+    </insert>
+
+    <insert id="insertAuditIssue" parameterType="AuditIssue" useGeneratedKeys="true" keyProperty="id">
+        insert into audit_issue
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="auditMainId != null and auditMainId != ''">audit_main_id,</if>
+            <if test="issueType != null">issue_type,</if>
+            <if test="issueDescription != null">issue_description,</if>
+            <if test="issueStatus != null">issue_status,</if>
+            <if test="rectificationMeasure != null">rectification_measure,</if>
+            <if test="rectificationResult != null">rectification_result,</if>
+            <if test="supportMaterials != null">support_materials,</if>
+            <if test="createdBy != null">created_by,</if>
+            <if test="updatedBy != null">updated_by,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="issueCount != null">issue_count,</if>
+            <if test="issueNum != null">issue_num,</if>
+            <if test="issueAmount != null">issue_amount,</if>
+            <if test="rectifiedIssueCount != null">rectified_issue_count,</if>
+            <if test="rectifiedIssueNum != null">rectified_issue_num,</if>
+            <if test="rectifiedIssueAmount != null">rectified_issue_amount,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="auditMainId != null and auditMainId != ''">#{auditMainId},</if>
+            <if test="issueType != null">#{issueType},</if>
+            <if test="issueDescription != null">#{issueDescription},</if>
+            <if test="issueStatus != null">#{issueStatus},</if>
+            <if test="rectificationMeasure != null">#{rectificationMeasure},</if>
+            <if test="rectificationResult != null">#{rectificationResult},</if>
+            <if test="supportMaterials != null">#{supportMaterials},</if>
+            <if test="createdBy != null">#{createdBy},</if>
+            <if test="updatedBy != null">#{updatedBy},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="issueCount != null">#{issueCount},</if>
+            <if test="issueNum != null">#{issueNum},</if>
+            <if test="issueAmount != null">#{issueAmount},</if>
+            <if test="rectifiedIssueCount != null">#{rectifiedIssueCount},</if>
+            <if test="rectifiedIssueNum != null">#{rectifiedIssueNum},</if>
+            <if test="rectifiedIssueAmount != null">#{rectifiedIssueAmount},</if>
+        </trim>
     </insert>
 
     <update id="updateAuditMain" parameterType="AuditMain">
