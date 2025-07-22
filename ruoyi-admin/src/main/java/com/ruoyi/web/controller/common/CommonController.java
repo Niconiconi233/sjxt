@@ -1,10 +1,13 @@
 package com.ruoyi.web.controller.common;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.common.annotation.Anonymous;
 import com.ruoyi.common.utils.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -162,7 +165,6 @@ public class CommonController
 
 
     @PostMapping("/uploadMinio")
-    @ResponseBody
     public AjaxResult uploadFileMinio(MultipartFile file) throws Exception
     {
         try
@@ -180,4 +182,22 @@ public class CommonController
             return AjaxResult.error(e.getMessage());
         }
     }
+
+    @Anonymous
+    @PostMapping("/uploadMinios")
+    public AjaxResult uploadFileMinios(List<MultipartFile> files) throws IOException {
+
+        try
+        {
+            Map<String, String> paths = FileUploadUtils.uploadMinioDept(files);
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("paths", paths);
+            return ajax;
+        }
+        catch (Exception e)
+        {
+            return AjaxResult.error(e.getMessage());
+        }
+    }
+
 }

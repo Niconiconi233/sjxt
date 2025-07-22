@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -182,6 +185,18 @@ public class FileUploadUtils
         }
     }
 
+    public static Map<String, String> uploadMinioDept(List<MultipartFile> files) throws IOException {
+        try
+        {
+            LoginUser loginUser = SecurityUtils.getLoginUser();
+            String deptName = loginUser.getUser().getDept().getDeptName();
+            return uploadMininoDept(getBucketName(), files, deptName ,MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION);
+        }catch (Exception e)
+        {
+            throw new IOException(e.getMessage(), e);
+        }
+    }
+
     private static final String uploadMinino(String bucketName, MultipartFile file, String[] allowedExtension)
             throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
             InvalidExtensionException
@@ -225,6 +240,34 @@ public class FileUploadUtils
             throw new IOException(e.getMessage(), e);
         }
     }
+
+    private static final Map<String, String> uploadMininoDept(String bucketName, List<MultipartFile> files, String deptName, String[] allowedExtension)
+            throws FileSizeLimitExceededException, IOException, FileNameLengthLimitExceededException,
+            InvalidExtensionException
+    {
+        Map<String, String> res = new HashMap<String, String>();
+        for (MultipartFile file : files) {
+            int fileNamelength = file.getOriginalFilename().length();
+            if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH)
+            {
+                throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
+            }
+            assertAllowed(file, allowedExtension);
+            try
+            {
+                String fileName = extractFilenameWithDept(file, deptName);
+                String pathFileName = MinioUtil.uploadFile(bucketName, fileName, file);
+                res.put(file.getOriginalFilename(), pathFileName);
+            }
+            catch (Exception e)
+            {
+                throw new IOException(e.getMessage(), e);
+            }
+        }
+        return res;
+    }
+
+
 
     /**
      * 编码文件名
