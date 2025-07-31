@@ -1,11 +1,9 @@
 package com.ruoyi.audit.domain;
 
-import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.annotation.Excel;
 import com.ruoyi.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 审计问题子对象 audit_issue
@@ -34,11 +32,6 @@ public class AuditIssue extends BaseEntity
     /** 整改状态 */
     @Excel(name = "整改状态")
     private String issueStatus;
-
-    /** 整改截止日期 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "整改截止日期", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date dueDate;
 
     /** 整改措施 */
     @Excel(name = "整改措施")
@@ -117,15 +110,6 @@ public class AuditIssue extends BaseEntity
     public String getIssueStatus() 
     {
         return issueStatus;
-    }
-    public void setDueDate(Date dueDate) 
-    {
-        this.dueDate = dueDate;
-    }
-
-    public Date getDueDate() 
-    {
-        return dueDate;
     }
     public void setRectificationMeasure(String rectificationMeasure) 
     {
@@ -220,7 +204,6 @@ public class AuditIssue extends BaseEntity
             .append("issueType", getIssueType())
             .append("issueDescription", getIssueDescription())
             .append("issueStatus", getIssueStatus())
-            .append("dueDate", getDueDate())
             .append("rectificationMeasure", getRectificationMeasure())
             .append("rectificationResult", getRectificationResult())
             .append("supportMaterials", getSupportMaterials())

@@ -48,6 +48,18 @@ public class AuditMainController extends BaseController
     }
 
     /**
+     * 查询审计问题管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('audit:audit:list')")
+    @GetMapping("/issuelist")
+    public TableDataInfo issueList(@RequestParam Long mainId)
+    {
+        startPage();
+        List<AuditIssue> list = auditIssueService.selectIssueList(mainId);
+        return getDataTable(list);
+    }
+
+    /**
      * 导出审计问题管理列表
      */
     @PreAuthorize("@ss.hasPermi('audit:audit:export')")

@@ -40,22 +40,6 @@ public class AuditMain extends BaseEntity
     @Excel(name = "整体整改时限", width = 30, dateFormat = "yyyy-MM-dd")
     private Date rectificationDeadline;
 
-    /** 创建者ID */
-    private Long createdBy;
-
-    /** 修改者ID */
-    private Long updatedBy;
-
-    /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "创建时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date createdAt;
-
-    /** 修改时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "修改时间", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date updatedAt;
-
     /** 逻辑删除标志（0=未删除，1=已删除） */
     private Integer isDeleted;
 
@@ -83,9 +67,6 @@ public class AuditMain extends BaseEntity
 
     /** 整改问题金额 */
     private Double rectifiedIssueAmount;
-
-    /** 审计问题子信息 */
-    private List<AuditIssue> auditIssueList;
 
     public void setId(Long id) 
     {
@@ -137,46 +118,6 @@ public class AuditMain extends BaseEntity
         return rectificationDeadline;
     }
 
-    public void setCreatedBy(Long createdBy) 
-    {
-        this.createdBy = createdBy;
-    }
-
-    public Long getCreatedBy() 
-    {
-        return createdBy;
-    }
-
-    public void setUpdatedBy(Long updatedBy) 
-    {
-        this.updatedBy = updatedBy;
-    }
-
-    public Long getUpdatedBy() 
-    {
-        return updatedBy;
-    }
-
-    public void setCreatedAt(Date createdAt) 
-    {
-        this.createdAt = createdAt;
-    }
-
-    public Date getCreatedAt() 
-    {
-        return createdAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) 
-    {
-        this.updatedAt = updatedAt;
-    }
-
-    public Date getUpdatedAt() 
-    {
-        return updatedAt;
-    }
-
     public void setIsDeleted(Integer isDeleted) 
     {
         this.isDeleted = isDeleted;
@@ -205,16 +146,6 @@ public class AuditMain extends BaseEntity
     public String getRectificationOrgName() 
     {
         return rectificationOrgName;
-    }
-
-    public List<AuditIssue> getAuditIssueList()
-    {
-        return auditIssueList;
-    }
-
-    public void setAuditIssueList(List<AuditIssue> auditIssueList)
-    {
-        this.auditIssueList = auditIssueList;
     }
 
     public Double getIssueAmount() {
@@ -273,14 +204,9 @@ public class AuditMain extends BaseEntity
             .append("inputBy", getInputBy())
             .append("inputDate", getInputDate())
             .append("rectificationDeadline", getRectificationDeadline())
-            .append("createdBy", getCreatedBy())
-            .append("updatedBy", getUpdatedBy())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
             .append("isDeleted", getIsDeleted())
             .append("rectificationOrgId", getRectificationOrgId())
             .append("rectificationOrgName", getRectificationOrgName())
-            .append("auditIssueList", getAuditIssueList())
             .toString();
     }
 }

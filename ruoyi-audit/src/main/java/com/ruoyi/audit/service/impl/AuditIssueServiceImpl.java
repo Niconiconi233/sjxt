@@ -1,11 +1,13 @@
 package com.ruoyi.audit.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ruoyi.audit.domain.AuditIssue;
 import com.ruoyi.audit.mapper.AuditIssueMapper;
 import com.ruoyi.audit.service.IAuditIssueService;
 import com.ruoyi.common.utils.SecurityUtils;
 import com.ruoyi.common.utils.poi.ExcelUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,6 +26,9 @@ import java.util.List;
 @Service
 public class AuditIssueServiceImpl extends ServiceImpl<AuditIssueMapper, AuditIssue> implements IAuditIssueService {
 
+    @Autowired
+    private AuditIssueMapper auditIssueMapper;
+
     @Override
     @Transactional
     public Integer importAuditIssue(MultipartFile file, Long id) throws IOException {
@@ -41,5 +46,12 @@ public class AuditIssueServiceImpl extends ServiceImpl<AuditIssueMapper, AuditIs
         }else {
             return -1;
         }
+    }
+
+    @Override
+    public List<AuditIssue> selectIssueList(Long mainId) {
+        LambdaQueryWrapper<AuditIssue> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(AuditIssue::getAuditMainId, mainId);
+        return auditIssueMapper.selectList(lambdaQueryWrapper);
     }
 }

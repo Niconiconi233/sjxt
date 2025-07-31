@@ -5,6 +5,7 @@ import com.ruoyi.audit.domain.AuditIssue;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * 包名：com.ruoyi.audit.service
@@ -22,5 +23,7 @@ public interface IAuditIssueService extends IService<AuditIssue> {
      * @return 结果
      */
     public Integer importAuditIssue(MultipartFile file, Long id) throws IOException;
+
+    public List<AuditIssue> selectIssueList(Long mainId);
 
 }

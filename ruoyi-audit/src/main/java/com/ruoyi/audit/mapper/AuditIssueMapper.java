@@ -15,14 +15,6 @@ import java.util.List;
 public interface AuditIssueMapper extends BaseMapper<AuditIssue> {
 
     /**
-     * 新增审计问题管理
-     *
-     * @param auditIssue 审计问题管理
-     * @return 结果
-     */
-    public int insertAuditIssue(AuditIssue auditIssue);
-
-    /**
      * 批量新增审计问题子
      *
      * @param auditIssueList 审计问题子列表

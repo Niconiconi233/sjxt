@@ -40,7 +40,8 @@ public class AuditMainServiceImpl extends ServiceImpl<AuditMainMapper, AuditMain
     @Override
     public AuditMain selectAuditMainById(Long id)
     {
-        return auditMainMapper.selectAuditMainById(id);
+        return auditMainMapper.selectById(id);
+        //return auditMainMapper.selectAuditMainById(id);
     }
 
     /**
@@ -65,7 +66,7 @@ public class AuditMainServiceImpl extends ServiceImpl<AuditMainMapper, AuditMain
     @Override
     public int insertAuditMain(AuditMain auditMain)
     {
-        auditMain.setCreatedBy(SecurityUtils.getUserId());
+        auditMain.setCreateBy(SecurityUtils.getUserId().toString());
         int rows = auditMainMapper.insertAuditMain(auditMain);
         //insertAuditIssue(auditMain);
         return rows;
@@ -81,9 +82,7 @@ public class AuditMainServiceImpl extends ServiceImpl<AuditMainMapper, AuditMain
     @Override
     public int updateAuditMain(AuditMain auditMain)
     {
-        auditMain.setUpdatedBy(SecurityUtils.getUserId());
-        auditMainMapper.deleteAuditIssueByAuditMainId(auditMain.getId());
-        //insertAuditIssue(auditMain);
+        auditMain.setUpdateBy(SecurityUtils.getUserId().toString());
         return auditMainMapper.updateAuditMain(auditMain);
     }
 
@@ -114,28 +113,4 @@ public class AuditMainServiceImpl extends ServiceImpl<AuditMainMapper, AuditMain
         auditMainMapper.deleteAuditIssueByAuditMainId(id);
         return auditMainMapper.deleteAuditMainById(id);
     }
-
-    /**
-     * 新增审计问题子信息
-     * 
-     * @param auditMain 审计问题管理对象
-     */
-/*    public void insertAuditIssue(AuditMain auditMain)
-    {
-        List<AuditIssue> auditIssueList = auditMain.getAuditIssueList();
-        Long id = auditMain.getId();
-        if (StringUtils.isNotNull(auditIssueList))
-        {
-            List<AuditIssue> list = new ArrayList<AuditIssue>();
-            for (AuditIssue auditIssue : auditIssueList)
-            {
-                auditIssue.setAuditMainId(id);
-                list.add(auditIssue);
-            }
-            if (list.size() > 0)
-            {
-                auditMainMapper.batchAuditIssue(list);
-            }
-        }
-    }*/
 }

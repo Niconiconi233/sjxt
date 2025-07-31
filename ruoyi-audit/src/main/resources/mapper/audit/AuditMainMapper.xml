@@ -10,10 +10,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="inputBy"    column="input_by"    />
         <result property="inputDate"    column="input_date"    />
         <result property="rectificationDeadline"    column="rectification_deadline"    />
-        <result property="createdBy"    column="created_by"    />
-        <result property="updatedBy"    column="updated_by"    />
-        <result property="createdAt"    column="created_at"    />
-        <result property="updatedAt"    column="updated_at"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
         <result property="isDeleted"    column="is_deleted"    />
         <result property="rectificationOrgId"    column="rectification_org_id"    />
         <result property="rectificationOrgName"    column="rectification_org_name"    />
@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="rectificationMeasure"    column="rectification_measure"    />
         <result property="rectificationResult"    column="rectification_result"    />
         <result property="supportMaterials"    column="support_materials"    />
-        <result property="createdAt"    column="created_at"    />
+        <result property="create_time"    column="created_at"    />
         <result property="updatedAt"    column="updated_at"    />
         <result property="isDeleted"    column="is_deleted"    />
         <result property="issueCount"    column="issue_count"    />
@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectAuditMainVo">
-        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name, issue_count, issue_num, issue_amount,
+        select id, project_name, input_by, input_date, rectification_deadline, create_by, update_by, create_time, update_time, is_deleted, rectification_org_id, rectification_org_name, issue_count, issue_num, issue_amount,
             rectified_issue_count, rectified_issue_num, rectified_issue_amount from audit_main
     </sql>
 
@@ -65,13 +65,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <select id="selectAuditMainById" parameterType="Long" resultMap="AuditMainAuditIssueResult">
-        select id, project_name, input_by, input_date, rectification_deadline, created_by, updated_by, created_at, updated_at, is_deleted, rectification_org_id, rectification_org_name
+        select id, project_name, input_by, input_date, rectification_deadline, create_by, update_by, create_time, update_time, is_deleted, rectification_org_id, rectification_org_name
         from audit_main
         where id = #{id}
     </select>
 
     <select id="selectAuditIssueList" resultMap="AuditIssueResult">
-        select id, audit_main_id, issue_type, issue_description, issue_status, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted
+        select id, audit_main_id, issue_type, issue_description, issue_status, rectification_measure, rectification_result, support_materials, create_at, update_at, is_deleted
         from audit_issue
         where audit_main_id = #{audit_main_id}
     </select>
@@ -83,10 +83,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inputBy != null">input_by,</if>
             <if test="inputDate != null">input_date,</if>
             <if test="rectificationDeadline != null">rectification_deadline,</if>
-            <if test="createdBy != null">created_by,</if>
-            <if test="updatedBy != null">updated_by,</if>
-            <if test="createdAt != null">created_at,</if>
-            <if test="updatedAt != null">updated_at,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
             <if test="isDeleted != null">is_deleted,</if>
             <if test="rectificationOrgId != null">rectification_org_id,</if>
             <if test="rectificationOrgName != null and rectificationOrgName != ''">rectification_org_name,</if>
@@ -102,10 +102,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inputBy != null">#{inputBy},</if>
             <if test="inputDate != null">#{inputDate},</if>
             <if test="rectificationDeadline != null">#{rectificationDeadline},</if>
-            <if test="createdBy != null">#{createdBy},</if>
-            <if test="updatedBy != null">#{updatedBy},</if>
-            <if test="createdAt != null">#{createdAt},</if>
-            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="isDeleted != null">#{isDeleted},</if>
             <if test="rectificationOrgId != null">#{rectificationOrgId},</if>
             <if test="rectificationOrgName != null and rectificationOrgName != ''">#{rectificationOrgName},</if>
@@ -128,10 +128,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="rectificationMeasure != null">rectification_measure,</if>
             <if test="rectificationResult != null">rectification_result,</if>
             <if test="supportMaterials != null">support_materials,</if>
-            <if test="createdBy != null">created_by,</if>
-            <if test="updatedBy != null">updated_by,</if>
-            <if test="createdAt != null">created_at,</if>
-            <if test="updatedAt != null">updated_at,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
             <if test="isDeleted != null">is_deleted,</if>
             <if test="issueCount != null">issue_count,</if>
             <if test="issueNum != null">issue_num,</if>
@@ -148,10 +148,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="rectificationMeasure != null">#{rectificationMeasure},</if>
             <if test="rectificationResult != null">#{rectificationResult},</if>
             <if test="supportMaterials != null">#{supportMaterials},</if>
-            <if test="createdBy != null">#{createdBy},</if>
-            <if test="updatedBy != null">#{updatedBy},</if>
-            <if test="createdAt != null">#{createdAt},</if>
-            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="isDeleted != null">#{isDeleted},</if>
             <if test="issueCount != null">#{issueCount},</if>
             <if test="issueNum != null">#{issueNum},</if>
@@ -169,10 +169,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="inputBy != null">input_by = #{inputBy},</if>
             <if test="inputDate != null">input_date = #{inputDate},</if>
             <if test="rectificationDeadline != null">rectification_deadline = #{rectificationDeadline},</if>
-            <if test="createdBy != null">created_by = #{createdBy},</if>
-            <if test="updatedBy != null">updated_by = #{updatedBy},</if>
-            <if test="createdAt != null">created_at = #{createdAt},</if>
-            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="createBy != null">created_by = #{createBy},</if>
+            <if test="updateBy != null">updated_by = #{updateBy},</if>
+            <if test="createTime != null">created_at = #{createTime},</if>
+            <if test="updateTime != null">updated_at = #{updateTime},</if>
             <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
             <if test="rectificationOrgId != null">rectification_org_id = #{rectificationOrgId},</if>
             <if test="rectificationOrgName != null and rectificationOrgName != ''">rectification_org_name = #{rectificationOrgName},</if>
@@ -203,9 +203,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <insert id="batchAuditIssue">
-        insert into audit_issue( id, audit_main_id, issue_type, issue_description, issue_status, due_date, rectification_measure, rectification_result, support_materials, created_at, updated_at, is_deleted) values
+        insert into audit_issue( id, audit_main_id, issue_type, issue_description, issue_status, due_date, rectification_measure, rectification_result, support_materials, create_time, update_time, is_deleted) values
         <foreach item="item" index="index" collection="list" separator=",">
-            ( #{item.id}, #{item.auditMainId}, #{item.issueType}, #{item.issueDescription}, #{item.issueStatus}, #{item.dueDate}, #{item.rectificationMeasure}, #{item.rectificationResult}, #{item.supportMaterials}, #{item.createdAt}, #{item.updatedAt}, #{item.isDeleted})
+            ( #{item.id}, #{item.auditMainId}, #{item.issueType}, #{item.issueDescription}, #{item.issueStatus}, #{item.dueDate}, #{item.rectificationMeasure}, #{item.rectificationResult}, #{item.supportMaterials}, #{item.createTime}, #{item.updateTime}, #{item.isDeleted})
         </foreach>
     </insert>
 </mapper>
